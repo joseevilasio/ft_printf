@@ -11,6 +11,7 @@ obj_files.o:
 	done
 
 $(NAME):	obj_files.o
+	@ar x ./libft/libft.a
 	@ar rcs ./$(NAME) ./*.o
 
 # bonus:
