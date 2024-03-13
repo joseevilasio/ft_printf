@@ -1,4 +1,4 @@
-.PHONY: all $(NAME) clean fclean re
+.PHONY: all $(NAME) clean fclean re libft
 
 NAME := libftprintf.a
 
@@ -14,13 +14,6 @@ $(NAME):	obj_files.o
 	@ar x ./libft/libft.a
 	@ar rcs ./$(NAME) ./*.o
 
-# bonus:
-# 	@for file_source in ./ft_lst*.c; do \
-# 		file_obj="./$$(basename $${file_source%.c}).o"; \
-# 		cc -Wall -Wextra -Werror -g -c "$${file_source}" -o "$${file_obj}"; \
-# 	done
-# 	@ar rcs ./libft.a ./*.o
-
 clean:
 	@find ./ -name '*.o' -exec rm -f {} \;
 
@@ -30,3 +23,11 @@ fclean:	clean
 	@find ./ -name '$(NAME)' -exec rm -f {} \;	
 
 re:	fclean all
+
+libft:
+	@for file_source in ./libft/*.c; do \
+		file_obj="./libft/$$(basename $${file_source%.c}).o"; \
+		cc -Wall -Wextra -Werror -g -c "$${file_source}" -o "$${file_obj}"; \
+	done
+	@ar rcs ./libft/libft.a ./libft/*.o
+	@make clean
