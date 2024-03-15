@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putunsignednbr.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 19:47:29 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/14 21:15:59 by josejunior       ###   ########.fr       */
+/*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
+/*   Updated: 2024/03/15 15:10:16 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putunsignednbr(unsigned int n)
 {
-	if (s != NULL)
+	int	i;
+
+	i = 0;
+	if (n > 9)
 	{
-		while (*s)
-		{
-			ft_putchar_fd(*s, fd);
-			s++;
-		}
+		i += ft_putunsignednbr(n / 10);
+		i += ft_putchar(n % 10 + '0');
 	}
+	else
+		i += ft_putchar(n % 10 + '0');
+	return (i);
 }

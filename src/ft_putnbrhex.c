@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putdecimal_fd.c                                 :+:      :+:    :+:   */
+/*   ft_putnbrhex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 19:13:54 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/13 20:33:42 by josejunior       ###   ########.fr       */
+/*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
+/*   Updated: 2024/03/15 15:10:09 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-void	ft_putdecimal_fd(float n, int fd)
-{	
-	int		integer;
-	int		integer_swap;
-	float	decimal;
+int	ft_putnbrhex(unsigned int n, char fmt)
+{
+	char	c;
+	int		i;
 
-	integer = n;
-	ft_putnbr_fd(integer, fd);
-	if (n < 0)
-	{
-		integer = integer * (-1);
-		n = n * (-1);
-		decimal = (integer - n) * integer;
-	}
+	i = 0;
+	if (fmt == 'x')
+		c = 'a';
+	if (fmt == 'X')
+		c = 'A';
+	if (n >= 16)
+		i += ft_putnbrhex(n / 16, fmt);
+	n = n % 16;
+	if (n < 10)
+		n += '0';
 	else
-		decimal = (integer - n) * integer;
-	integer_swap = decimal;
-	ft_putchar_fd('.', fd);
-	ft_putnbr_fd(integer_swap, fd);
+		n += c - 10;
+	i += ft_putchar(n);
+	return (i);
 }

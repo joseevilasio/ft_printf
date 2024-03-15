@@ -1,4 +1,4 @@
-.PHONY: all $(NAME) clean fclean re libft
+.PHONY: all obj_files.o $(NAME) clean fclean re libft
 
 NAME := libftprintf.a
 
@@ -10,7 +10,7 @@ obj_files.o:
 		cc -Wall -Wextra -Werror -g -c "$${file_source}" -o "$${file_obj}"; \
 	done
 
-$(NAME):	obj_files.o
+$(NAME):	libft obj_files.o
 	@ar x ./libft/libft.a
 	@ar rcs ./$(NAME) ./*.o
 

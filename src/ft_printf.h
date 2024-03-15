@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:21:55 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/13 20:34:15 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/14 23:31:07 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include <stdarg.h>
 # include "libft/libft.h"
 # include <stdio.h>
+# include <stdlib.h>
 
+int	ft_putchar(int c);
+int	ft_putstr(char *str);
+int	ft_putnbr(int n);
+int	ft_putnbrhex(unsigned int n, char fmt);
+int	ft_putunsignednbr(unsigned int n);
+int	ft_putpointer(unsigned long long n);
 /* Write a library that contains ft_printf(), a
 function that will mimic the original printf() */
-int		ft_printf(const char *format, ...);
+int	ft_printf(const char *format, ...);
 
-/* Outputs the integer in hexadecimal lowercase ’n’ to the given file
-descriptor. */
-void	ft_putnbrhex_fd(int n, int fd);
-
-/* Outputs the integer in hexadecimal uppercase ’n’ to the given file
-descriptor. */
-void	ft_putnbrhex_upper_fd(int n, int fd);
-
-/* Outputs the decimal ’n’ to the given file descriptor. */
-void	ft_putdecimal_fd(float n, int fd);
-
-#endif //LIBFTPRINTF_H
+#endif //FT_PRINTF_H

@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 19:47:29 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/14 21:15:59 by josejunior       ###   ########.fr       */
+/*   Created: 2024/03/14 23:02:43 by josejunior        #+#    #+#             */
+/*   Updated: 2024/03/14 23:04:50 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putchar(int c)
 {
-	if (s != NULL)
-	{
-		while (*s)
-		{
-			ft_putchar_fd(*s, fd);
-			s++;
-		}
-	}
+	write(1, &c, sizeof(char));
+	return (1);
 }

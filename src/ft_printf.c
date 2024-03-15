@@ -6,80 +6,54 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:33:57 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/13 20:37:38 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/14 23:32:13 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-// static int	count_args(const char *str)
-// {
-// 	char	*ptr_str;
-// 	int		i;
+static int	ft_format(va_list args, const char fmt)
+{
+	int	i;
 
-// 	ptr_str = (char *) str;
-// 	i = 0;
-// 	while(*ptr_str != '\0')
-// 	{
-// 		if (*ptr_str == '%')
-// 			i++;
-// 		ptr_str++;
-// 	}
-// 	return (i);
-// }
+	i = 0;
+	if (fmt == 'c')
+		i += ft_putchar(va_arg(args, int));
+	else if (fmt == 's')
+		i += ft_putstr(va_arg(args, char *));
+	else if (fmt == 'p')
+		i += ft_putpointer(va_arg(args, unsigned long long));
+	else if (fmt == 'd' || fmt == 'i')
+		i += ft_putnbr(va_arg(args, int));
+	else if (fmt == 'u')
+		i += ft_putunsignednbr(va_arg(args, unsigned int));
+	else if (fmt == 'x' || fmt == 'X')
+		i += ft_putnbrhex(va_arg(args, unsigned int), fmt);
+	else if (fmt == '%')
+		i += ft_putchar('%');
+	return (i);
+}
 
-// static void	print(char c, void *item)
-// {
-// 	// int		arg_int;
-// 	// char	*arg_str;
-
-// 	if (c == 'c')
-// 		ft_putchar_fd(item, 1);
-// 	else if (c == 's')
-// 		ft_putstr_fd(item, 1);
-// 	// else if (c == 'p')
-// 	// else if (c == 'd')
-// 	else if (c == 'i')
-// 		ft_putnbr_fd(item, 1);
-// 	// else if (c == 'u')
-// 	// else if (c == 'c')
-// 	// else if (c == 'x')
-// 	// else if (c == 'X')
-// 	// else if (c == '%')
-// }
-
-int	ft_printf(const char *format, ...)
+int	ft_printf(const char *str, ...)
 {
 	va_list	args;
-	char	*str;
+	int		len;
+	char	*ptr_str;
 
-	str = (char *) format;
-	va_start(args, format);
-	while (*str)
+	ptr_str = (char *) str;
+	len = 0;
+	va_start(args, str);
+	while (*ptr_str)
 	{
-		if (*str == '%')
+		if (*ptr_str == '%')
 		{
-			str++;
-			if (*str == 'c')
-				ft_putchar_fd(va_arg(args, int), 1);
-			else if (*str == 's')
-				ft_putstr_fd(va_arg(args, char *), 1);
-			else if (*str == 'p')
-				ft_putnbrhex_fd(va_arg(args, int), 1);
-			else if (*str == 'd')
-				ft_putdecimal_fd(va_arg(args, float), 1);
-			else if (*str == 'i')
-				ft_putnbr_fd(va_arg(args, int), 1);
-			// else if (*str == 'u')
-			else if (*str == 'x')
-				ft_putnbrhex_fd(va_arg(args, int), 1);
-			else if (*str == 'X')
-				ft_putnbrhex_upper_fd(va_arg(args, int), 1);
-			else if (*str == '%')
-				ft_putchar_fd('%', 1);
+			ptr_str++;
+			len += ft_format(args, *ptr_str);
 		}
-		str++;
+		else
+			len += ft_putchar(*ptr_str);
+		ptr_str++;
 	}
 	va_end(args);
-	return (0);
+	return (len);
 }

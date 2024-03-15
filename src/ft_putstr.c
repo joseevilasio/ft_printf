@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbrhex_fd.c                                  :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/13 18:49:29 by josejunior       ###   ########.fr       */
+/*   Created: 2024/03/14 23:06:31 by josejunior        #+#    #+#             */
+/*   Updated: 2024/03/15 14:27:16 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-void	ft_putnbrhex_fd(int n, int fd)
+int	ft_putstr(char *str)
 {
-	if (n >= 16)
-		ft_putnbrhex_fd(n / 16, fd);
-	n = n % 16;
-	if (n < 10)
-		n += '0';
+	int	i;
+
+	i = 0;
+	if (str != NULL)
+	{
+		while (*str)
+		{
+			i += ft_putchar(*str);
+			str++;
+		}
+	}
 	else
-		n += 'a' - 10;
-	ft_putchar_fd(n, fd);
+		i += ft_putstr("(null)");
+	return (i);
 }

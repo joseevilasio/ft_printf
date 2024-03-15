@@ -1,25 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putpointer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 19:47:29 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/14 21:15:59 by josejunior       ###   ########.fr       */
+/*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
+/*   Updated: 2024/03/15 15:05:26 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putstr_fd(char *s, int fd)
+static int	putpointer(unsigned long long n)
 {
-	if (s != NULL)
-	{
-		while (*s)
-		{
-			ft_putchar_fd(*s, fd);
-			s++;
-		}
-	}
+	int	i;
+
+	i = 0;
+	if (n >= 16)
+		i += putpointer(n / 16);
+	n = n % 16;
+	if (n < 10)
+		n += '0';
+	else
+		n += 'a' - 10;
+	i += ft_putchar(n);
+	return (i);
+}
+
+int	ft_putpointer(unsigned long long n)
+{
+	int	i;
+
+	i = 0;
+	i += ft_putstr("0x");
+	if (n == 0)
+		i += ft_putchar('0');
+	else
+		i += putpointer(n);
+	return (i);
 }
