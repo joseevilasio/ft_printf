@@ -5,7 +5,7 @@ The ft_printf was designed to have function similar to standard C printf.
 ## Compile
 To compile the library, simply use the makefile targets on the command line within the 'src' folder.
 ```
-./src/make libft.a
+./src/make fclean all
 ```
 
 ## Tests
