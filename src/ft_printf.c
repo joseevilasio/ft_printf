@@ -6,33 +6,11 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:33:57 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/14 23:32:13 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/20 18:07:26 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static int	ft_format(va_list args, const char fmt)
-{
-	int	i;
-
-	i = 0;
-	if (fmt == 'c')
-		i += ft_putchar(va_arg(args, int));
-	else if (fmt == 's')
-		i += ft_putstr(va_arg(args, char *));
-	else if (fmt == 'p')
-		i += ft_putpointer(va_arg(args, unsigned long long));
-	else if (fmt == 'd' || fmt == 'i')
-		i += ft_putnbr(va_arg(args, int));
-	else if (fmt == 'u')
-		i += ft_putunsignednbr(va_arg(args, unsigned int));
-	else if (fmt == 'x' || fmt == 'X')
-		i += ft_putnbrhex(va_arg(args, unsigned int), fmt);
-	else if (fmt == '%')
-		i += ft_putchar('%');
-	return (i);
-}
 
 int	ft_printf(const char *str, ...)
 {
@@ -48,7 +26,9 @@ int	ft_printf(const char *str, ...)
 		if (*ptr_str == '%')
 		{
 			ptr_str++;
-			len += ft_format(args, *ptr_str);
+			len += ft_flags(ptr_str, args);
+			if (ft_length_flags(ptr_str) != 0)
+				ptr_str += ft_length_flags(ptr_str);
 		}
 		else
 			len += ft_putchar(*ptr_str);
