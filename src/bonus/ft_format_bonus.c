@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_format.c                                        :+:      :+:    :+:   */
+/*   ft_format_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 22:49:21 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/21 15:18:31 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/22 17:24:37 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 static int	putzero_space(va_list copy_args, char fmt, int nbr, char flag)
 {
@@ -68,7 +68,7 @@ static int	format_execute(va_list args, const char fmt, char flag, int nbr)
 	return (i);
 }
 
-int	ft_format(va_list args, const char fmt, t_listflag *l_flags, int nbr)
+int	ft_format_bonus(va_list args, const char fmt, t_listflag *l_flags, int nbr)
 {
 	int		i;
 	int		a;

@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_length_flags.c                                  :+:      :+:    :+:   */
+/*   ft_putnchar_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 22:32:34 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/20 18:01:54 by josejunior       ###   ########.fr       */
+/*   Created: 2024/03/14 23:02:43 by josejunior        #+#    #+#             */
+/*   Updated: 2024/03/22 17:14:35 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-int	ft_length_flags(char *str)
+int	ft_putnchar(int c, int n)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (n > 0)
 	{
-		if (str[i] == 'c' || str[i] == 's' || str[i] == 'p' || str[i] == 'd'
-			|| str[i] == 'i' || str[i] == 'u' || str[i] == 'x' || str[i] == 'X'
-			|| str[i] == '%')
-			break ;
-		i++;
+		while (i < n)
+			i += ft_putchar(c);
 	}
 	return (i);
 }

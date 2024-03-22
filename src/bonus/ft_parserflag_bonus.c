@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*   ft_parserflag_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 20:28:47 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/21 15:41:15 by josejunior       ###   ########.fr       */
+/*   Created: 2024/03/21 18:14:22 by josejunior        #+#    #+#             */
+/*   Updated: 2024/03/22 17:29:55 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 static void	add_flag(char flag, t_listflag *l_flags)
 {
@@ -49,6 +49,8 @@ static void	get_flag(char *str, t_listflag *l_flags, int limit, char **n)
 	{
 		if (*str == '#')
 			add_flag('#', &l_flags[i]);
+		else if (*str == '.')
+			add_flag('.', &l_flags[i]);
 		else if (*str == '+')
 			add_flag('+', &l_flags[i]);
 		else if (*str == ' ')
@@ -78,6 +80,8 @@ static void	mode_flag(t_listflag *l_flags, va_list args, char f, int n)
 	{
 		if (l_flags[a].flag == '#' && (f == 'x' || f == 'X'))
 			l_flags[a].execute = TRUE;
+		else if (l_flags[a].flag == '.' && n > 0 && f == 's')
+			l_flags[a].execute = TRUE;
 		else if ((l_flags[a].flag == '+' || l_flags[a].flag == ' ')
 			&& (f == 'd' || f == 'i') && va_arg(args, int) > 0)
 			l_flags[a].execute = TRUE;
@@ -94,31 +98,24 @@ static void	mode_flag(t_listflag *l_flags, va_list args, char f, int n)
 	}
 }
 
-int	ft_flags(char *str, va_list args)
+int	ft_parserflag(char *str, va_list args, t_listflag *l_flags, char **n)
 {
 	int			i;
-	char		*n;
-	t_listflag	*l_flags;
 	va_list		copy_args;
 
 	i = 0;
-	l_flags = NULL;
-	n = NULL;
 	l_flags = ft_calloc(ft_length_flags(str) + 1, sizeof(t_listflag));
+	va_copy(copy_args, args);
 	if (l_flags)
 	{
-		get_flag(str, l_flags, ft_length_flags(str), &n);
-		if (n == 0)
+		get_flag(str, l_flags, ft_length_flags(str), n);
+		if (*n == 0)
 		{
-			n = ft_calloc(2, sizeof(char));
-			ft_strlcpy(n, "0", 1);
+			*n = ft_calloc(2, sizeof(char));
+			ft_strlcpy(*n, "0", 1);
 		}
 		str += ft_length_flags(str);
-		va_copy(copy_args, args);
-		mode_flag(l_flags, copy_args, *str, ft_atoi(n));
-		i += ft_format(args, *str, l_flags, 0);
-		free(n);
+		mode_flag(l_flags, copy_args, *str, ft_atoi(*n));
 	}
-	free(l_flags);
 	return (i);
 }
