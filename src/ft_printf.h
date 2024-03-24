@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:21:55 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/22 17:21:27 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/24 12:36:24 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include "libft/libft.h"
-# include "bonus/ft_printf_bonus.h"
 # include <stdio.h>
 # include <stdlib.h>
 

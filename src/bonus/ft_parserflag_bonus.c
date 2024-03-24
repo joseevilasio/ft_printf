@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:14:22 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/22 17:29:55 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/24 20:16:44 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,24 +98,27 @@ static void	mode_flag(t_listflag *l_flags, va_list args, char f, int n)
 	}
 }
 
-int	ft_parserflag(char *str, va_list args, t_listflag *l_flags, char **n)
+int	ft_parserflag(char *str, va_list args, t_listflag **l_flags, char **n)
 {
 	int			i;
+	int			len_flag;
 	va_list		copy_args;
 
 	i = 0;
-	l_flags = ft_calloc(ft_length_flags(str) + 1, sizeof(t_listflag));
+	len_flag = ft_length_flags(str);
+	*l_flags = ft_calloc(len_flag + 1, sizeof(t_listflag));
 	va_copy(copy_args, args);
 	if (l_flags)
 	{
-		get_flag(str, l_flags, ft_length_flags(str), n);
+		get_flag(str, *l_flags, len_flag, n);
 		if (*n == 0)
 		{
 			*n = ft_calloc(2, sizeof(char));
-			ft_strlcpy(*n, "0", 1);
+			ft_strlcpy(*n, "0", 2);
 		}
-		str += ft_length_flags(str);
-		mode_flag(l_flags, copy_args, *str, ft_atoi(*n));
+		str += len_flag;
+		if (l_flags[0]->flag)
+			mode_flag(*l_flags, copy_args, *str, ft_atoi(*n));
 	}
 	return (i);
 }
