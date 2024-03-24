@@ -43,4 +43,5 @@ libftprintf_bonus:
 bonus: libft libftprintf_bonus obj_files.o
 	@ar x ./libft/libft.a
 	@ar x ./bonus/libftprintf_bonus.a
+	@rm ft_printf.o
 	@ar rcs ./$(NAME) ./*.o
