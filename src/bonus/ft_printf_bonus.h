@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:11:37 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/24 18:19:19 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/25 20:23:39 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int	ft_length_flags(char *str);
 int	ft_putnchar(int c, int n);
 int	ft_format_bonus(va_list args, const char fmt, t_listflag *l_flags, int nbr);
 int	ft_printf(const char *str, ...);
+int	ft_length_nbrhexa(unsigned long long n);
 
 #endif //FT_PRINTF_BONUS_H

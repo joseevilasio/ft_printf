@@ -6,37 +6,50 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 22:49:21 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/23 15:06:21 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/25 20:24:19 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
+static int length_arg(va_list args, char fmt)
+{
+	int 	i;
+	char	*str;
+	char	*nbr;
+	va_list copy_args;
+
+	i = 0;
+	va_copy(copy_args, args);
+	if (fmt == 's')
+	{
+		str = va_arg(copy_args, char *);
+		i += ft_strlen(str);
+	}
+	else if (fmt == 'c' || fmt == '%')
+		i += 1;
+	else if (fmt == 'd' || fmt == 'i' || fmt == 'u')
+	{
+		nbr = ft_itoa(va_arg(copy_args, int));
+		i += ft_strlen(nbr);
+		free(nbr);
+	}
+	else if (fmt == 'x' || fmt == 'X' || fmt == 'p')
+		i += ft_length_nbrhexa(va_arg(args, unsigned long long));
+	return (i);
+}
+
 static int	putzero_space(va_list copy_args, char fmt, int nbr, char flag)
 {
 	int		len;
 	int		i;
-	char	*s;
 
-	len = 0;
 	i = 0;
-	if (flag == '0')
-	{
-		len = ft_strlen(ft_itoa(va_arg(copy_args, int)));
-		i += ft_putnchar('0', nbr - len);
-	}
+	len = length_arg(copy_args, fmt);
 	if (flag == 'a')
-	{
-		if (fmt == 's')
-		{
-			s = va_arg(copy_args, char *);
-			if (s)
-				len = ft_strlen(s);
-		}
-		else
-			len = 1;
 		i += ft_putnchar(' ', nbr - len);
-	}
+	else
+		i += ft_putnchar('0', nbr - len);
 	return (i);
 }
 
@@ -47,7 +60,7 @@ static int	format_execute(va_list args, const char fmt, char flag, int nbr)
 
 	i = 0;
 	va_copy(copy_args, args);
-	if (flag == '0' || flag == 'a')
+	if ((flag == '0' || flag == 'a') && nbr > 0)
 		i += putzero_space(copy_args, fmt, nbr, flag);
 	if (fmt == 'c')
 		i += ft_putchar(va_arg(args, int));
