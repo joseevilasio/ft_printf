@@ -6,11 +6,23 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:06:31 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/25 23:28:54 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/26 23:45:16 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
+
+static int	strlen_(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
 
 static int	putnstr(char *str, int n)
 {
@@ -30,29 +42,29 @@ static int	putnstr(char *str, int n)
 	return (i);
 }
 
-int	ft_putstr_bonus(char *str, char flag, int n)
+int	ft_putstr_bonus(char *str, t_listflag *l_flags, int n)
 {
 	int	i;
 	int	len;
+	int	a;
 
 	i = 0;
-	if (str == NULL)
-		len = 0;
-	else
-		len = ft_strlen(str);
-	if (flag == '.')
-		i += putnstr(str, n);
-	else if (flag == '-')
+	a = 0;
+	len = strlen_(str);
+	while (l_flags[a].flag)
 	{
-		i += putnstr(str, len);
-		i += ft_putnchar_bonus(' ', n - i);
+		if (l_flags[a].flag == '.' && l_flags[a].execute == TRUE)
+			i += putnstr(str, n);
+		else if (l_flags[a].flag == '-' && l_flags[a].execute == TRUE)
+		{
+			i += putnstr(str, len);
+			i += ft_putnchar_bonus(' ', n - i);
+		}
+		a++;
 	}
-	else if (flag == 'n' && n > 0)
-	{
+	if (n > 0 && i == 0)
 		i += ft_putnchar_bonus(' ', (n - len));
-		i += putnstr(str, len);
-	}
-	else
+	if (l_flags[0].flag == 0)
 		i += putnstr(str, len);
 	return (i);
 }
