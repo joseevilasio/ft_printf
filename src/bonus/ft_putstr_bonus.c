@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:06:31 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/26 23:45:16 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/03/30 19:26:20 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	putnstr(char *str, int n)
 	return (i);
 }
 
-int	ft_putstr_bonus(char *str, t_listflag *l_flags, int n)
+int	ft_putstr_bonus(char *str, t_listflag *lflags, int n)
 {
 	int	i;
 	int	len;
@@ -51,11 +51,11 @@ int	ft_putstr_bonus(char *str, t_listflag *l_flags, int n)
 	i = 0;
 	a = 0;
 	len = strlen_(str);
-	while (l_flags[a].flag)
+	while (lflags[a].flag)
 	{
-		if (l_flags[a].flag == '.' && l_flags[a].execute == TRUE)
+		if (lflags[a].flag == '.' && lflags[a].exe == TRUE)
 			i += putnstr(str, n);
-		else if (l_flags[a].flag == '-' && l_flags[a].execute == TRUE)
+		else if (lflags[a].flag == '-' && lflags[a].exe == TRUE)
 		{
 			i += putnstr(str, len);
 			i += ft_putnchar_bonus(' ', n - i);
@@ -64,7 +64,7 @@ int	ft_putstr_bonus(char *str, t_listflag *l_flags, int n)
 	}
 	if (n > 0 && i == 0)
 		i += ft_putnchar_bonus(' ', (n - len));
-	if (l_flags[0].flag == 0)
+	if (lflags[0].flag == 0)
 		i += putnstr(str, len);
 	return (i);
 }
