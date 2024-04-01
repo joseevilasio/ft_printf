@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
-/*   Updated: 2024/04/01 00:01:53 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/01 11:16:41 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	ft_putnbrhex_bonus(unsigned int n, char fmt, t_listflag *lflags, int nbr)
 
 	i = 0;
 	if (ft_isflag('#', lflags) && fmt == 'x')
-			i += ft_putstr("0x");
+		i += ft_putstr("0x");
 	if (ft_isflag('#', lflags) && fmt == 'X')
-			i += ft_putstr("0X");
+		i += ft_putstr("0X");
 	str = putnbrhex_bonus(n, fmt);
 	i += ft_putstr_bonus(str, lflags, nbr - i);
 	free(str);

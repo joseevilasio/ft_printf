@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:14:22 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/31 22:26:38 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/01 11:17:37 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	ft_parserflag(char *str, va_list args, t_listflag **lflags, char **n)
 		}
 		str += len_flag;
 		if (lflags[0]->flag)
-			mode_flag(*lflags, copy_args, *str, 20); //ft_atoi(*n)
+			mode_flag(*lflags, copy_args, *str, ft_atoi(*n));
 	}
 	return (i);
 }

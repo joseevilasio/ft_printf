@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:33:57 by josejunior        #+#    #+#             */
-/*   Updated: 2024/04/01 00:12:08 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/01 11:17:52 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	printf_bonus(char *str, t_listflag *lflags, va_list args, char *n)
 			str++;
 			ft_parserflag(str, args, &lflags, &n);
 			str += ft_length_flags(str);
-			i += format_bonus(*str, lflags, args, 20); //ft_atoi(n)
+			i += format_bonus(*str, lflags, args, ft_atoi(n));
 			free(n);
 			free(lflags);
 		}

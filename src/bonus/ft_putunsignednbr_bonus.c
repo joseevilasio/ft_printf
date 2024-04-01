@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
-/*   Updated: 2024/04/01 11:13:44 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/01 11:15:46 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_putunsignednbr_bonus(unsigned int n, t_listflag *lflags, int nbr)
 	{
 		i += putunsignednbr_bonus(n);
 		if (ft_isflag('-', lflags) == 1)
-		i += ft_putnchar_bonus(' ', nbr - i);
+			i += ft_putnchar_bonus(' ', nbr - i);
 	}
 	else
 	{
