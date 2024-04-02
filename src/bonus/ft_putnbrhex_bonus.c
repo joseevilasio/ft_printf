@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
-/*   Updated: 2024/04/02 13:58:03 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/02 17:33:54 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ int	ft_putnbrhex_bonus(unsigned int n, char fmt, t_listflag *lflags, int nbr)
 	else if (lflags[0].flag)
 		i += put_before(n, lflags, nbr, fmt);
 	else
-		i += putnbrhex_bonus(n, fmt);	
+		i += putnbrhex_bonus(n, fmt);
 	return (i);
 }

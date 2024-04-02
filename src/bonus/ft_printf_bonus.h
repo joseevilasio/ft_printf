@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:11:37 by josejunior        #+#    #+#             */
-/*   Updated: 2024/04/01 00:14:38 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/02 17:38:53 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define FT_PRINTF_BONUS_H
 # include <stdarg.h>
 # include "../ft_printf.h"
+# define TRUE 1
+# define FALSE 0
 
-typedef enum t_bool { FALSE, TRUE }	t_bool;
+typedef int	t_bool;
 typedef struct t_listflag
 {
 	char	flag;
