@@ -6,33 +6,55 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 17:33:57 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/24 20:29:13 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/01 11:17:52 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-static int	fmt_printf(char *ptr_str, t_listflag *l_flags, va_list args, char *n)
+static int	format_bonus(char fmt, t_listflag *lflags, va_list args, int n)
 {
 	int	i;
 
 	i = 0;
-	while (*ptr_str)
+	if (fmt == 'c')
+		i += ft_putchar_bonus(va_arg(args, int), lflags, n);
+	else if (fmt == 's')
+		i += ft_putstr_bonus(va_arg(args, char *), lflags, n);
+	else if (fmt == 'p')
+		i += ft_putpointer_bonus(va_arg(args, unsigned long long), lflags, n);
+	else if (fmt == 'd' || fmt == 'i')
+		i += ft_putnbr_bonus(va_arg(args, int), lflags, n);
+	else if (fmt == 'u')
+		i += ft_putunsignednbr_bonus(va_arg(args, unsigned int), lflags, n);
+	else if (fmt == 'x' || fmt == 'X')
+		i += ft_putnbrhex_bonus(va_arg(args, unsigned int), fmt, lflags, n);
+	else if (fmt == '%')
+		i += ft_putchar_bonus('%', lflags, n);
+	return (i);
+}
+
+static int	printf_bonus(char *str, t_listflag *lflags, va_list args, char *n)
+{
+	int	i;
+
+	i = 0;
+	while (*str)
 	{
-		if (*ptr_str == '%')
+		if (*str == '%')
 		{
-			l_flags = NULL;
+			lflags = NULL;
 			n = NULL;
-			ptr_str++;
-			ft_parserflag(ptr_str, args, &l_flags, &n);
-			ptr_str += ft_length_flags(ptr_str);
-			i += ft_format_bonus(args, *ptr_str, l_flags, ft_atoi(n));
+			str++;
+			ft_parserflag(str, args, &lflags, &n);
+			str += ft_length_flags(str);
+			i += format_bonus(*str, lflags, args, ft_atoi(n));
 			free(n);
-			free(l_flags);
+			free(lflags);
 		}
 		else
-			i += ft_putchar(*ptr_str);
-		ptr_str++;
+			i += ft_putchar(*str);
+		str++;
 	}
 	return (i);
 }
@@ -40,17 +62,17 @@ static int	fmt_printf(char *ptr_str, t_listflag *l_flags, va_list args, char *n)
 int	ft_printf(const char *str, ...)
 {
 	va_list		args;
-	t_listflag	*l_flags;
+	t_listflag	*lflags;
 	int			len;
 	char		*ptr_str;
 	char		*n;
 
 	ptr_str = (char *) str;
 	len = 0;
-	l_flags = NULL;
+	lflags = NULL;
 	n = NULL;
 	va_start(args, str);
-	len += fmt_printf(ptr_str, l_flags, args, n);
+	len += printf_bonus(ptr_str, lflags, args, n);
 	va_end(args);
 	return (len);
 }

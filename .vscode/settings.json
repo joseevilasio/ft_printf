@@ -4,6 +4,13 @@
         "random": "c",
         "ft_printf.h": "c",
         "stdio.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "ft_printf_bonus.h": "c",
+        "limits.h": "c",
+        "sstream": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c"
     }
 }
