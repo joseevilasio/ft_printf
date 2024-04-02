@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
-/*   Updated: 2024/04/01 11:15:46 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/01 19:22:35 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	ft_putunsignednbr_bonus(unsigned int n, t_listflag *lflags, int nbr)
 {
 	int	i;
 
-	i = 0;
 	i = 0;
 	if (ft_isflag('-', lflags) == 1)
 	{

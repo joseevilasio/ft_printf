@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:22:31 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/31 20:14:49 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/02 11:45:41 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,18 @@ static int	put_before(int n, t_listflag *lflags, int nbr)
 	i = 0;
 	if (ft_isflag(' ', lflags) == 1)
 		i += ft_putchar(' ');
-	if (ft_isflag('0', lflags) == 1)
+	if (ft_isflag('0', lflags) == 1 || ft_isflag('.', lflags) == 1)
 	{
 		if (n < 0)
 			i += ft_putchar('-');
 		else if (ft_isflag('+', lflags) == 1)
 			i += ft_putchar('+');
-		i += ft_putnchar_bonus('0', nbr - (intlen_bonus(n) + i));
+		if (ft_isflag('.', lflags) == 1 && (n < 0))
+			i += ft_putnchar_bonus('0', nbr - (intlen_bonus(n) + i - 1));
+		else
+			i += ft_putnchar_bonus('0', nbr - (intlen_bonus(n) + i));
 	}
-	else if (ft_isflag('n', lflags) == 1 || ft_isflag('.', lflags) == 1)
+	else
 	{
 		if (ft_isflag('+', lflags) == 1 || n < 0)
 			i++;
@@ -110,7 +113,13 @@ int	ft_putnbr_bonus(int n, t_listflag *lflags, int nbr)
 	i = 0;
 	if (ft_isflag('-', lflags) == 1)
 		i += put_after(n, lflags, nbr);
-	else
+	else if (lflags[0].flag)
 		i += put_before(n, lflags, nbr);
+	else
+	{
+		if (n < 0)
+			i += ft_putchar('-');
+		i += putnbr_bonus(n);
+	}
 	return (i);
 }

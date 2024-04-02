@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/31 21:13:47 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/02 13:03:31 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,17 @@ int	ft_putpointer_bonus(unsigned long long n, t_listflag *lflags, int nbr)
 		i += ft_putstr("0x");
 		i += putpointer_bonus(n);
 	}
-	else
+	else if (!n)
 	{
 		i += ft_putnchar_bonus(' ', nbr - 5);
 		i += ft_putstr("(nil)");
 	}
+	else
+	{
+		i += ft_putstr("0x");
+		i += putpointer_bonus(n);
+	}
+	if (ft_isflag('-', lflags) == 1)
+		i += ft_putnchar_bonus(' ', nbr - i);
 	return (i);
 }

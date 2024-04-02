@@ -6,7 +6,7 @@
 /*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:14:22 by josejunior        #+#    #+#             */
-/*   Updated: 2024/04/01 11:17:37 by josejunior       ###   ########.fr       */
+/*   Updated: 2024/04/01 23:20:21 by josejunior       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ static void	mode_flag(t_listflag *lflags, va_list args, char f, int n)
 	{
 		if (lflags[a].flag == '#' && (f == 'x' || f == 'X'))
 			lflags[a].exe = TRUE;
-		else if (lflags[a].flag == '.' && n > 0 && f == 's')
+		else if (lflags[a].flag == '.' && f != 'p' && f != 'c')
 			lflags[a].exe = TRUE;
 		else if ((lflags[a].flag == '+' || lflags[a].flag == ' ')
-			&& (f == 'd' || f == 'i') && va_arg(args, int) > 0)
+			&& (f == 'd' || f == 'i') && va_arg(args, int) >= 0)
 			lflags[a].exe = TRUE;
-		else if (lflags[a].flag == '0' && (f == 'x' || f == 'X' || f == 'd'
-			|| f == 'i') && n > 0)
+		else if (lflags[a].flag == '0' && (f != 'c' && f != 's' && f != 'p')
+			&& n > 0)
 		{
 			lflags[a].exe = TRUE;
 			if (ft_isflag('-', lflags) == 1)
