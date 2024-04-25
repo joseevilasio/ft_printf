@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 19:37:29 by josejunior        #+#    #+#             */
-/*   Updated: 2024/02/15 19:39:06 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/16 19:04:28 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/23 13:13:57 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
-{
-	unsigned int	index_src;
-	unsigned int	index_dest;
-	unsigned int	i;
+#include "libft.h"
 
-	index_src = 0;
-	index_dest = 0;
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
+{
+	size_t	size_src;
+	size_t	size_dest;
+	size_t	i;
+
+	if ((!dest || !src) && size == 0)
+		return (0);
+	size_src = ft_strlen(src);
+	size_dest = ft_strlen(dest);
 	i = 0;
-	while (src[index_src] != '\0')
-		index_src++;
-	while (dest[index_dest] != '\0')
-		index_dest++;
-	if (size <= index_dest)
-		return (size + index_src);
-	while (src[i] != '\0' && (index_dest + i) < (size - 1))
+	if (size <= size_dest)
+		return (size + size_src);
+	while (src[i] && (size_dest + i) < (size - 1))
 	{
-		dest[index_dest + i] = src[i];
+		dest[size_dest + i] = src[i];
 		i++;
 	}
-	dest[index_dest + i] = '\0';
-	return (index_dest + index_src);
+	dest[size_dest + i] = '\0';
+	return (size_dest + size_src);
 }

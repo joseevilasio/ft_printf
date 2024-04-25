@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 19:43:47 by josejunior        #+#    #+#             */
-/*   Updated: 2024/02/16 21:29:32 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/16 19:04:53 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/23 14:01:13 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(char *str, char *to_find, unsigned int len)
+char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 {
-	int				index;
-	unsigned int	i;
-	unsigned int	x;
+	unsigned int	index;
+	size_t			i;
+	size_t			x;
 
 	i = 0;
-	if (*to_find == '\0')
-		return (str);
-	while (*str != '\0' && i++ <= len)
+	if (!*to_find)
+		return ((char *) str);
+	while (*str && i++ <= len)
 	{
 		if (*str == *to_find)
 		{
 			index = 0;
 			x = i;
-			while (to_find[index] != '\0' && x <= len
+			while (to_find[index] && x <= len
 				&& str[index] == to_find[index])
 			{
 				x++;
 				index++;
 			}
 			if (index == ft_strlen(to_find))
-				return (str);
+				return ((char *) str);
 		}
 		str++;
 	}
-	return (0);
+	return (NULL);
 }

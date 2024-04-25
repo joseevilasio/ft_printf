@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 20:34:02 by josejunior        #+#    #+#             */
-/*   Updated: 2024/02/20 19:40:16 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/16 19:04:57 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/22 18:54:33 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 char	*ft_strrchr(char *s, int c)
 {
-	int	i;
+	size_t			i;
+	unsigned char	new_c;
 
+	new_c = (unsigned char) c;
 	i = ft_strlen(s) + 1;
-	c = c % 256;
 	while (i-- > 0)
 	{
-		if (s[i] == c)
+		if (s[i] == new_c)
 			return (s + i);
 	}
-	return ((void *) 0);
+	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/01 19:47:29 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/14 21:15:59 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/16 19:03:48 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/23 12:51:58 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	if (s != NULL)
+	while (s && *s)
 	{
-		while (*s)
-		{
-			ft_putchar_fd(*s, fd);
-			s++;
-		}
+		ft_putchar_fd(*s, fd);
+		s++;
 	}
 }

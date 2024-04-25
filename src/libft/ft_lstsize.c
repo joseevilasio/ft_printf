@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 20:52:00 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/05 20:06:32 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/16 19:03:04 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/21 21:21:28 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_lstsize(t_list *lst)
 	int		i;
 
 	i = 0;
-	if (lst != NULL)
+	if (lst)
 	{
 		i++;
 		start = lst->next;

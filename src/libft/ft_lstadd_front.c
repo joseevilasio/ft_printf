@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 13:28:50 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/05 21:18:37 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/16 19:02:08 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/16 19:02:11 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new_)
 {
 	if (lst)
 	{
-		new->next = *lst;
-		*lst = new;
+		new_->next = *lst;
+		*lst = new_;
 	}
 }

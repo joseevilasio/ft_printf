@@ -1,47 +1,60 @@
-.PHONY: all obj_files.o $(NAME) clean fclean re libft
+.PHONY: all $(NAME) bonus clean fclean re libft
 
 NAME := libftprintf.a
 
+CC := cc
+
+AR := ar rcs
+
+CFLAGS := -Wall -Wextra -Werror -g
+
+LIBFT := libft
+
+OBJS_DIR := objs_dir
+
+SRCS := ft_printf.c ft_putchar.c ft_putnbr.c ft_putnbrhex.c \
+	ft_putpointer.c ft_putstr.c ft_putunsignednbr.c \
+
+OBJS := $(SRCS:.c=.o)
+
+SRCS_BONUS := bonus/ft_isflag_bonus.c bonus/ft_length_flags_bonus.c \
+	bonus/ft_parserflag_bonus.c bonus/ft_printf_bonus.c \
+	bonus/ft_putchar_bonus.c bonus/ft_putnbr_bonus.c bonus/ft_putnbrhex_bonus.c \
+	bonus/ft_putnchar_bonus.c bonus/ft_putpointer_bonus.c bonus/ft_putstr_bonus.c \
+	bonus/ft_putunsignednbr_bonus.c \
+
+OBJS_BONUS := $(SRCS_BONUS:.c=.o)
+
+
+$(OBJS):	$(SRCS)
+
+$(OBJS_BONUS):	$(SRCS_BONUS)
+
 all:	$(NAME)
 
-obj_files.o:
-	@for file_source in ./*.c; do \
-		file_obj="./$$(basename $${file_source%.c}).o"; \
-		cc -Wall -Wextra -Werror -g -c "$${file_source}" -o "$${file_obj}"; \
-	done
+$(NAME): $(OBJS)
+	make bonus -C $(LIBFT)
+	mkdir $(OBJS_DIR)
+	mv $(LIBFT)/*.o $(OBJS_DIR)
+	mv $(LIBFT)/libft.a .
+	mv ./*.o $(OBJS_DIR)
+	ar rcs ./$(NAME) $(OBJS_DIR)/*.o
 
-$(NAME):	libft obj_files.o
-	@ar x ./libft/libft.a
-	@ar rcs ./$(NAME) ./*.o
+bonus: $(OBJS_B)
+	make bonus -C $(LIBFT)
+	mkdir $(OBJS_DIR)
+	mv $(LIBFT)/*.o $(OBJS_DIR)
+	mv $(LIBFT)/libft.a .
+	mv ./*.o $(OBJS_DIR)
+	ar rcs ./$(NAME) $(OBJS_DIR)/*.o
 
 clean:
-	@find ./ -name '*.o' -exec rm -f {} \;
+	rm -rf $(OBJS_DIR)
+	make clean -C $(LIBFT)
+	rm -f ./*.o
 
 fclean:	clean
-	@find ./ -name '*.out' -exec rm -f {} \;
-	@find ./ -name '*.a' -exec rm -f {} \;
-	@find ./ -name '$(NAME)' -exec rm -f {} \;	
+	make fclean -C $(LIBFT)
+	rm -f ./*.a
 
 re:	fclean all
-
-libft:
-	@for file_source in ./libft/*.c; do \
-		file_obj="./libft/$$(basename $${file_source%.c}).o"; \
-		cc -Wall -Wextra -Werror -g -c "$${file_source}" -o "$${file_obj}"; \
-	done
-	@ar rcs ./libft/libft.a ./libft/*.o
-	@make clean
-
-libftprintf_bonus:
-	@for file_source in ./bonus/*.c; do \
-		file_obj="./bonus/$$(basename $${file_source%.c}).o"; \
-		cc -Wall -Wextra -Werror -g -c "$${file_source}" -o "$${file_obj}"; \
-	done
-	@ar rcs ./bonus/libftprintf_bonus.a ./bonus/*.o
-	@make clean
-
-bonus: libft libftprintf_bonus obj_files.o
-	@ar x ./libft/libft.a
-	@ar x ./bonus/libftprintf_bonus.a
-	@rm ft_printf.o
-	@ar rcs ./$(NAME) ./*.o
