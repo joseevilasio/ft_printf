@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/14 23:22:31 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/15 15:09:11 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/26 20:07:09 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/26 20:07:11 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

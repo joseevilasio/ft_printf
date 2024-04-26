@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putpointer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 18:39:25 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/21 15:24:34 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/26 20:06:23 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/26 20:06:25 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

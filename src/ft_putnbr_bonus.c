@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/14 23:22:31 by josejunior        #+#    #+#             */
-/*   Updated: 2024/04/02 18:23:13 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/26 20:07:14 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/26 20:07:16 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 static int	intlen_bonus(int n)
 {

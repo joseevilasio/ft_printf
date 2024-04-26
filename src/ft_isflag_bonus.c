@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isflag.c                               :+:      :+:    :+:   */
+/*   ft_isflag_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/30 18:43:18 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/30 19:25:03 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/26 20:07:57 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/26 20:07:59 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 int	ft_isflag(char flag, t_listflag *lflags)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 17:33:57 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/24 17:49:12 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/26 20:07:38 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/26 20:07:40 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

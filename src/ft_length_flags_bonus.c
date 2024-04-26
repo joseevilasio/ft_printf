@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_length_flags_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josejunior <josejunior@student.42.fr>      +#+  +:+       +#+        */
+/*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 22:32:34 by josejunior        #+#    #+#             */
-/*   Updated: 2024/03/22 17:14:23 by josejunior       ###   ########.fr       */
+/*   Created: 2024/04/26 20:07:51 by joneves-          #+#    #+#             */
+/*   Updated: 2024/04/26 20:07:53 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "ft_printf.h"
 
 int	ft_length_flags(char *str)
 {

@@ -1,4 +1,4 @@
-.PHONY: all $(NAME) bonus clean fclean re libft
+.PHONY: all $(NAME) bonus clean fclean re
 
 NAME := libftprintf.a
 
@@ -15,35 +15,32 @@ SRCS := ft_printf.c ft_putchar.c ft_putnbr.c ft_putnbrhex.c \
 
 OBJS := $(SRCS:.c=.o)
 
-SRCS_BONUS := bonus/ft_isflag_bonus.c bonus/ft_length_flags_bonus.c \
-	bonus/ft_parserflag_bonus.c bonus/ft_printf_bonus.c \
-	bonus/ft_putchar_bonus.c bonus/ft_putnbr_bonus.c bonus/ft_putnbrhex_bonus.c \
-	bonus/ft_putnchar_bonus.c bonus/ft_putpointer_bonus.c bonus/ft_putstr_bonus.c \
-	bonus/ft_putunsignednbr_bonus.c \
+SRCS_BONUS := ft_isflag_bonus.c ft_length_flags_bonus.c ft_parserflag_bonus.c \
+	ft_printf_bonus.c ft_putchar_bonus.c ft_putnbr_bonus.c \
+	ft_putnbrhex_bonus.c ft_putnchar_bonus.c ft_putpointer_bonus.c \
+	ft_putstr_bonus.c ft_putunsignednbr_bonus.c \
 
 OBJS_BONUS := $(SRCS_BONUS:.c=.o)
 
+all:	$(NAME)
 
 $(OBJS):	$(SRCS)
 
 $(OBJS_BONUS):	$(SRCS_BONUS)
 
-all:	$(NAME)
-
 $(NAME): $(OBJS)
-	make bonus -C $(LIBFT)
+	make all -C $(LIBFT)
 	mv $(LIBFT)/*.o .
 	ar rcs $(NAME) *.o
 
 bonus: $(OBJS_BONUS) all
 	rm -f ft_printf.o
-	# mv bonus/*.o .
-	# ar rcs $(NAME) *.o
+	rm -f libftprintf.a
+	ar rcs $(NAME) *.o
 
 clean:
 	make clean -C $(LIBFT)
 	rm -f ./*.o
-	rm -f ./bonus/*.o
 
 fclean:	clean
 	make fclean -C $(LIBFT)
