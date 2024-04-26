@@ -10,8 +10,6 @@ CFLAGS := -Wall -Wextra -Werror -g
 
 LIBFT := libft
 
-OBJS_DIR := objs_dir
-
 SRCS := ft_printf.c ft_putchar.c ft_putnbr.c ft_putnbrhex.c \
 	ft_putpointer.c ft_putstr.c ft_putunsignednbr.c \
 
@@ -34,24 +32,18 @@ all:	$(NAME)
 
 $(NAME): $(OBJS)
 	make bonus -C $(LIBFT)
-	mkdir $(OBJS_DIR)
-	mv $(LIBFT)/*.o $(OBJS_DIR)
-	mv $(LIBFT)/libft.a .
-	mv ./*.o $(OBJS_DIR)
-	ar rcs ./$(NAME) $(OBJS_DIR)/*.o
+	mv $(LIBFT)/*.o .
+	ar rcs $(NAME) *.o
 
-bonus: $(OBJS_B)
-	make bonus -C $(LIBFT)
-	mkdir $(OBJS_DIR)
-	mv $(LIBFT)/*.o $(OBJS_DIR)
-	mv $(LIBFT)/libft.a .
-	mv ./*.o $(OBJS_DIR)
-	ar rcs ./$(NAME) $(OBJS_DIR)/*.o
+bonus: $(OBJS_BONUS) all
+	rm -f ft_printf.o
+	# mv bonus/*.o .
+	# ar rcs $(NAME) *.o
 
 clean:
-	rm -rf $(OBJS_DIR)
 	make clean -C $(LIBFT)
 	rm -f ./*.o
+	rm -f ./bonus/*.o
 
 fclean:	clean
 	make fclean -C $(LIBFT)
