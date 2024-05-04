@@ -6,15 +6,31 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 20:07:38 by joneves-          #+#    #+#             */
-/*   Updated: 2024/04/26 20:07:40 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/04 23:23:37 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_format(va_list args, const char fmt)
+static int	ft_putchar(int c)
+{
+	write(1, &c, sizeof(char));
+	return (1);
+}
+
+static int	ft_putnbr(char *nbr)
 {
 	int	i;
+
+	i = 0;
+	i += ft_putstr(nbr);
+	free(nbr);
+	return (i);
+}
+
+static int	ft_format(va_list args, const char fmt)
+{
+	int		i;
 
 	i = 0;
 	if (fmt == 'c')
@@ -22,9 +38,9 @@ static int	ft_format(va_list args, const char fmt)
 	else if (fmt == 's')
 		i += ft_putstr(va_arg(args, char *));
 	else if (fmt == 'p')
-		i += ft_putpointer(va_arg(args, unsigned long long));
+		i += ft_putpointer(va_arg(args, unsigned long));
 	else if (fmt == 'd' || fmt == 'i')
-		i += ft_putnbr(va_arg(args, int));
+		i += ft_putnbr(ft_itoa(va_arg(args, int)));
 	else if (fmt == 'u')
 		i += ft_putunsignednbr(va_arg(args, unsigned int));
 	else if (fmt == 'x' || fmt == 'X')

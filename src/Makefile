@@ -10,33 +10,28 @@ CFLAGS := -Wall -Wextra -Werror -g
 
 LIBFT := libft
 
-SRCS := ft_printf.c ft_putchar.c ft_putnbr.c ft_putnbrhex.c \
-	ft_putpointer.c ft_putstr.c ft_putunsignednbr.c \
+SRCS := ft_printf.c ft_printf_utils.c \
 
 OBJS := $(SRCS:.c=.o)
 
-SRCS_BONUS := ft_isflag_bonus.c ft_length_flags_bonus.c ft_parserflag_bonus.c \
-	ft_printf_bonus.c ft_putchar_bonus.c ft_putnbr_bonus.c \
-	ft_putnbrhex_bonus.c ft_putnchar_bonus.c ft_putpointer_bonus.c \
-	ft_putstr_bonus.c ft_putunsignednbr_bonus.c \
+# SRCS_BONUS := 
 
-OBJS_BONUS := $(SRCS_BONUS:.c=.o)
+# OBJS_BONUS := $(SRCS_BONUS:.c=.o)
 
 all:	$(NAME)
 
-$(OBJS):	$(SRCS)
+$(OBJS): $(SRCS)
+	$(CC) $(CFLAGS) -c $*.c -o $@
 
-$(OBJS_BONUS):	$(SRCS_BONUS)
+# $(OBJS_BONUS): $(SRCS_BONUS)
+# 	$(CC) $(CFLAGS) -c $*.c -o $@
 
 $(NAME): $(OBJS)
 	make all -C $(LIBFT)
-	mv $(LIBFT)/*.o .
+	cp $(LIBFT)/*.o .
 	ar rcs $(NAME) *.o
 
-bonus: $(OBJS_BONUS) all
-	rm -f ft_printf.o
-	rm -f libftprintf.a
-	ar rcs $(NAME) *.o
+# bonus: all
 
 clean:
 	make clean -C $(LIBFT)
