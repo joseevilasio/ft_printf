@@ -6,70 +6,97 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 20:07:38 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/04 23:58:05 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:01:50 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_putchar(int c)
-{
-	write(1, &c, sizeof(char));
-	return (1);
-}
-
-static int	ft_putnbr(char *nbr)
+static void	fmtupper(char *specifier)
 {
 	int	i;
 
 	i = 0;
-	i += ft_putstr(nbr);
-	free(nbr);
-	return (i);
+	while (specifier[i])
+	{
+		specifier[i] = ft_toupper(specifier[i]);
+		i++;
+	}
 }
 
-static int	ft_format(va_list args, const char fmt)
+static char	*str_check(char *specifier)
 {
-	int		i;
+	if (!specifier)
+		return (ft_strdup("(null)"));
+	else
+		return (ft_strdup(specifier));
+}
 
-	i = 0;
+static char	*ctoa(int c)
+{
+	char	*str;
+
+	if (c == 0)
+	{
+		ft_putchar_fd(c, 1);
+		return (NULL);
+	}
+	str = (char *) malloc(2 * sizeof(char));
+	str[0] = (char) c;
+	str[1] = '\0';
+	return (str);
+}
+
+static char	*ft_format(va_list args, const char fmt)
+{
+	char	*specifier;
+
 	if (fmt == 'c')
-		i += ft_putchar(va_arg(args, int));
+		specifier = ctoa(va_arg(args, int));
 	else if (fmt == 's')
-		i += ft_putstr(va_arg(args, char *));
+		specifier = str_check(va_arg(args, char *));
 	else if (fmt == 'p')
-		i += ft_putpointer(va_arg(args, unsigned long));
+		specifier = ft_ptoa(va_arg(args, unsigned long));
 	else if (fmt == 'd' || fmt == 'i')
-		i += ft_putnbr(ft_itoa(va_arg(args, int)));
+		specifier = ft_itoa(va_arg(args, int));
 	else if (fmt == 'u')
-		i += ft_putunsignednbr(va_arg(args, unsigned int));
+		specifier = ft_uitoa(va_arg(args, unsigned int));
 	else if (fmt == 'x' || fmt == 'X')
-		i += ft_putnbrhex(va_arg(args, unsigned int), fmt);
+	{
+		specifier = ft_uitoa_hex(va_arg(args, unsigned int));
+		if (fmt == 'X')
+			fmtupper(specifier);
+	}
 	else if (fmt == '%')
-		i += ft_putchar('%');
-	return (i);
+		specifier = ft_strdup("%");
+	return (specifier);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list	args;
-	int		len;
-	char	*ptr_str;
+	int		number_of_char;
+	char	*fmt_specifier;
 
-	ptr_str = (char *) str;
-	len = 0;
+	number_of_char = 0;
 	va_start(args, str);
-	while (*ptr_str)
+	while (*str)
 	{
-		if (*ptr_str == '%')
+		if (*str == '%')
 		{
-			ptr_str++;
-			len += ft_format(args, *ptr_str);
+			str++;
+			fmt_specifier = ft_format(args, *str);
+			number_of_char += ft_checklen(fmt_specifier, *str);
+			ft_putstr_fd(fmt_specifier, 1);
+			free(fmt_specifier);
 		}
 		else
-			len += ft_putchar(*ptr_str);
-		ptr_str++;
+		{
+			ft_putchar_fd(*str, 1);
+			number_of_char++;
+		}
+		str++;
 	}
 	va_end(args);
-	return (len);
+	return (number_of_char);
 }
