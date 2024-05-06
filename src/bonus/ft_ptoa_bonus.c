@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa_hex.c                                     :+:      :+:    :+:   */
+/*   ft_ptoa_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 15:47:59 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/05 19:43:25 by joneves-         ###   ########.fr       */
+/*   Created: 2024/05/05 16:15:20 by joneves-          #+#    #+#             */
+/*   Updated: 2024/05/05 19:42:13 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-static int	ft_nbrlen(unsigned int n)
+static int	ft_nbrlen(unsigned long n)
 {
 	int	i;
 
@@ -25,25 +25,27 @@ static int	ft_nbrlen(unsigned int n)
 	return (i);
 }
 
-char	*ft_uitoa_hex(unsigned int n)
+char	*ft_ptoa(unsigned long n)
 {
 	char	*str;
 	char	*base;
 	int		size;
 
-	if (n == 0)
-		return (ft_strdup("0"));
+	if (!n || n == 0)
+		return (ft_strdup("(nil)"));
 	base = "0123456789abcdef";
 	size = ft_nbrlen(n);
-	str = (char *) malloc((size + 1) * sizeof(char));
+	str = (char *) malloc((size + 3) * sizeof(char));
 	if (str)
 	{
-		str[size] = '\0';
+		str[size + 2] = '\0';
 		while (size-- > 0)
 		{
-			str[size] = base[n % 16];
+			str[size + 2] = base[n % 16];
 			n = n / 16;
 		}
+		str[0] = '0';
+		str[1] = 'x';
 		return (str);
 	}
 	return (NULL);
