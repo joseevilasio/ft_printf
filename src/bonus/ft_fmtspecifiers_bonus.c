@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 23:18:24 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/06 13:56:26 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/07 23:37:32 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_fmtspecifiers(char *str, t_lflags *lstflags, char f)
 	*new_str = 0;
 	while (lstflags[a].flag)
 	{
-		if (lstflags[a].type == 'a')
+		if (lstflags[a].type == 'a') //verificar prioriades
 			new_str = add(str, f, lstflags);
 		// else if (lstflags[a].type == 'a')
 		// 	new_str = add(str, f, lstflags); //precisao

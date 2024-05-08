@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:59:10 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/06 13:46:19 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/07 22:39:16 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ void	lflag_clear(t_lflags *lstflags)
 		free(lstflags);
 		lstflags = NULL;
 	}
+}
+
+t_bool	ft_flagchr(t_lflags *lstflags, char flag)
+{
+	int	i;
+
+	i = 0;
+	while (lstflags[i].flag)
+	{
+		if (lstflags[i].flag == flag && lstflags[i].use == TRUE)
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
 }

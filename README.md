@@ -64,3 +64,13 @@ $6C6A
 > ft_printf("%%");
 $%
 ```
+
+## Bonus
+
+'#' Efeito apenas em x X
+
+'+' Efeito em d e i
+
+' ' Efeito em d e i
+
+'0' Add 0 a esquerda em d i x X u
