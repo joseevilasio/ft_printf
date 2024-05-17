@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 23:18:24 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/07 23:37:32 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/15 22:57:55 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,52 +21,85 @@ static char	*merge(char *s1, char *s2)
 	return (new);
 }
 
-static char *add(char *str, char fmt, t_lflags *lstflags)
+static char	*add_prefix(char *str, char fmt, t_lflags lstflags)
 {
 	char	*new_str;
-	int		a;
 
-	a = 0;
-	new_str = (char *) malloc(sizeof(char));
-	*new_str = 0;
-	if (lstflags[a].flag == '#' && lstflags[a].use == TRUE)
+	if (lstflags.flag == '#' && lstflags.use == TRUE)
 	{
 		if (fmt == 'x')
 			new_str = merge("0x", str);
 		else
 			new_str = merge("0X", str);
 	}
-	else if (lstflags[a].flag == '+' && lstflags[a].use == TRUE)
+	else if (lstflags.flag == '+' && lstflags.use == TRUE)
 		new_str = merge("+", str);
-	else if (lstflags[a].flag == ' ' && lstflags[a].use == TRUE)
+	else if (lstflags.flag == ' ' && lstflags.use == TRUE)
 		new_str = merge(" ", str);
 	else
-		free(str);
+		return (str);
 	return (new_str);
 }
+
+// static char	*add_width(char *str, char fmt, t_lflags lstflags)
+// {
+// 	char	*new_str;
+
+// 	if (lstflags.flag == '0' && lstflags.use == TRUE)
+// 	{
+// 		new_str = merge("0x", str);
+// 		else
+// 			new_str = merge("0X", str);
+// 	}
+// 	else if (lstflags.flag == '+' && lstflags.use == TRUE)
+// 		new_str = merge("+", str);
+// 	else if (lstflags.flag == ' ' && lstflags.use == TRUE)
+// 		new_str = merge(" ", str);
+// 	else
+// 		return (str);
+// 	return (new_str);
+// }
+
+// static char	*add_precision(char *str, char fmt, t_lflags lstflags)
+// {
+// 	char	*new_str;
+
+// 	if (lstflags.flag == '0' && lstflags.use == TRUE)
+// 	{
+// 		new_str = merge("0x", str);
+// 		else
+// 			new_str = merge("0X", str);
+// 	}
+// 	else if (lstflags.flag == '+' && lstflags.use == TRUE)
+// 		new_str = merge("+", str);
+// 	else if (lstflags.flag == ' ' && lstflags.use == TRUE)
+// 		new_str = merge(" ", str);
+// 	else
+// 		return (str);
+// 	return (new_str);
+// }
 
 char	*ft_fmtspecifiers(char *str, t_lflags *lstflags, char f)
 {
 	int		a;
-	char	*new_str;
+	char	*specifier;
 
 	a = 0;
-	new_str = (char *) malloc(sizeof(char));
-	*new_str = 0;
+	specifier = str;
 	while (lstflags[a].flag)
 	{
 		if (lstflags[a].type == 'a') //verificar prioriades
-			new_str = add(str, f, lstflags);
-		// else if (lstflags[a].type == 'a')
-		// 	new_str = add(str, f, lstflags); //precisao
-		// else if (lstflags[a].type == 'a')
-		// 	new_str = add(str, f, lstflags); //left
+			specifier = add_prefix(specifier, f, lstflags[a]);
+		// else if (lstflags[a].type == 'p')
+		// 	ptr_str = add(str, f, lstflags); //precisao
+		// else if (lstflags[a].type == 'w')
+		// 	specifier = add_width(specifier, f, lstflags[a]); //fazer nova funcao para adicionar alinhamento tanto para direita como para esquerda, com ou sem zeros.
 		a++;
 	}
-	if (!*new_str)
-	{
-		free(new_str);
-		return (str);
-	}
-	return (new_str);
+	// if (!ptr_str)
+	// {
+	// 	free(ptr_str);
+	// 	return (str); //verificar se retorna NULL
+	// }
+	return (specifier);
 }

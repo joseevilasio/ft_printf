@@ -74,3 +74,12 @@ $%
 ' ' Efeito em d e i
 
 '0' Add 0 a esquerda em d i x X u
+
+flags: Define opções de formatação, como alinhamento, preenchimento com zeros, exibição de sinal e outros. Por exemplo, você pode usar -, +, 0, #, ou ' '.
+
+width: Especifica a largura mínima do campo de saída. Se o argumento for menor que essa largura, ele será preenchido com espaços à esquerda (ou à direita, dependendo da flag -). Você pode especificar o número mínimo de caracteres a serem impressos.
+
+.precision: Controla o número de dígitos a serem impressos após o ponto decimal (para números de ponto flutuante) ou o número mínimo de dígitos a serem impressos (para inteiros). Para strings, especifica o número máximo de caracteres a serem impressos.
+
+length: Especifica o tamanho do argumento. Por exemplo, h para short int, l para long int, ll para long long int, z para size_t, j para intmax_t, t para ptrdiff_t, entre outros.
+specifier: Indica o tipo de dados do argumento a ser impresso. Por exemplo, d para inteiros decimais, f para números de ponto flutuante, s para strings, c para caracteres, p para ponteiros, entre outros.
