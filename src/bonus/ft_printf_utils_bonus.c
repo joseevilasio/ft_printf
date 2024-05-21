@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:59:10 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/15 23:09:43 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/21 22:19:51 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,28 @@ void	lflag_clear(t_lflags *lstflags)
 	}
 }
 
-t_lflags	ft_flagchr(t_lflags *lstflags, char flag)
+t_lflags	ft_flagchr(t_lflags *lstflags, char flag, int mode)
 {
 	int	i;
 
 	i = 0;
-	while (lstflags[i].flag)
+	if (mode == 1)
 	{
-		if (lstflags[i].flag == flag)
-			return (lstflags[i]);
-		i++;
+		while (lstflags[i].flag)
+		{
+			if (lstflags[i].flag == flag)
+				return (lstflags[i]);
+			i++;
+		}		
+	}
+	else if (mode == 2)
+	{
+		while (lstflags[i].type)
+		{
+			if (lstflags[i].type == flag)
+				return (lstflags[i]);
+			i++;
+		}
 	}
 	return (lstflags[i]);
 }
@@ -68,7 +80,7 @@ char	*ft_multichar(char c, int nbr)
 	if (str)
 	{
 		i = 0;
-		while (i <= nbr)
+		while (i < nbr)
 		{
 			str[i] = c;
 			i++;

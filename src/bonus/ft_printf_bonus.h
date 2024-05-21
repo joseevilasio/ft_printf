@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 20:07:30 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/15 22:59:27 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/21 22:18:26 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char		*ft_ptoa(unsigned long n);
 int			ft_checklen(char *str, char fmt);
 int			ft_flaglen(char *str);
 void		lflag_clear(t_lflags *lstflags);
-t_lflags	ft_flagchr(t_lflags *lstflags, char flag);
+t_lflags	ft_flagchr(t_lflags *lstflags, char flag, int mode);
 char		*ft_multichar(char c, int nbr);
 
 /* Write a library that contains ft_printf(), a

@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 20:07:38 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/06 13:20:23 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/21 22:01:26 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ int	ft_printf(const char *str, ...)
 		if (*str == '%')
 		{
 			str++;
-			fmt_specifier = ft_parserflags((char *) str, args); //changed
+			fmt_specifier = ft_parserflags((char *) str, args);
 			number_of_char += ft_checklen(fmt_specifier, *str);
 			ft_putstr_fd(fmt_specifier, 1);
 			free(fmt_specifier);
-			str = str + ft_flaglen((char *) str); //changed
+			str = str + ft_flaglen((char *) str);
 		}
 		else
 		{
