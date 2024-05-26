@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 20:07:38 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/05 19:01:50 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:11:30 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 static void	fmtupper(char *specifier)
 {
@@ -47,7 +47,7 @@ static char	*ctoa(int c)
 	return (str);
 }
 
-static char	*ft_format(va_list args, const char fmt)
+char	*ft_format(va_list args, const char fmt)
 {
 	char	*specifier;
 
@@ -84,11 +84,11 @@ int	ft_printf(const char *str, ...)
 	{
 		if (*str == '%')
 		{
-			str++;
-			fmt_specifier = ft_format(args, *str);
+			fmt_specifier = ft_parserflags((char *)(++str), args);
 			number_of_char += ft_checklen(fmt_specifier, *str);
 			ft_putstr_fd(fmt_specifier, 1);
 			free(fmt_specifier);
+			str = ft_strchr((char *)str, ft_getfmt((char *)str));
 		}
 		else
 		{

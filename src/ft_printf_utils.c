@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isflag_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 20:07:57 by joneves-          #+#    #+#             */
-/*   Updated: 2024/04/26 20:07:59 by joneves-         ###   ########.fr       */
+/*   Created: 2024/05/05 18:59:10 by joneves-          #+#    #+#             */
+/*   Updated: 2024/05/05 19:43:35 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_isflag(char flag, t_listflag *lflags)
+int	ft_checklen(char *str, char fmt)
 {
-	int	i;
-
-	i = 0;
-	while (lflags[i].flag)
-	{
-		if (lflags[i].flag == flag && lflags[i].exe == TRUE)
-			return (1);
-		i++;
-	}
-	return (0);
+	if (fmt == 'c' && !str)
+		return (1);
+	else
+		return (ft_strlen(str));
 }

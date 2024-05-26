@@ -1,34 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbrhex.c                                     :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 20:06:41 by joneves-          #+#    #+#             */
-/*   Updated: 2024/04/26 20:06:43 by joneves-         ###   ########.fr       */
+/*   Created: 2024/04/16 19:01:52 by joneves-          #+#    #+#             */
+/*   Updated: 2024/05/05 16:58:47 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbrhex(unsigned int n, char fmt)
+static int	ft_nbrlen(unsigned int n)
 {
-	char	c;
-	int		i;
+	int	i;
 
 	i = 0;
-	if (fmt == 'x')
-		c = 'a';
-	if (fmt == 'X')
-		c = 'A';
-	if (n >= 16)
-		i += ft_putnbrhex(n / 16, fmt);
-	n = n % 16;
-	if (n < 10)
-		n += '0';
-	else
-		n += c - 10;
-	i += ft_putchar(n);
+	while (n > 0)
+	{
+		n = n / 10;
+		i++;
+	}
 	return (i);
+}
+
+char	*ft_uitoa(unsigned int n)
+{
+	char	*str;
+	int		size;
+
+	if (n == 0)
+		return (ft_strdup("0"));
+	size = ft_nbrlen(n);
+	str = (char *) malloc((size + 1) * sizeof(char));
+	if (str)
+	{
+		str[size] = '\0';
+		while (size-- > 0 && n > 9)
+		{
+			str[size] = n % 10 + '0';
+			n = n / 10;
+		}
+		str[size] = n + '0';
+		return (str);
+	}
+	return (NULL);
 }

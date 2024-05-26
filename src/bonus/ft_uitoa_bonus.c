@@ -1,44 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putpointer.c                                    :+:      :+:    :+:   */
+/*   ft_uitoa_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 20:06:23 by joneves-          #+#    #+#             */
-/*   Updated: 2024/04/26 20:06:25 by joneves-         ###   ########.fr       */
+/*   Created: 2024/04/16 19:01:52 by joneves-          #+#    #+#             */
+/*   Updated: 2024/05/05 19:42:16 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-static int	putpointer(unsigned long long n)
+static int	ft_nbrlen(unsigned int n)
 {
 	int	i;
 
 	i = 0;
-	if (n >= 16)
-		i += putpointer(n / 16);
-	n = n % 16;
-	if (n < 10)
-		n += '0';
-	else
-		n += 'a' - 10;
-	i += ft_putchar(n);
+	while (n > 0)
+	{
+		n = n / 10;
+		i++;
+	}
 	return (i);
 }
 
-int	ft_putpointer(unsigned long long n)
+char	*ft_uitoa(unsigned int n)
 {
-	int	i;
+	char	*str;
+	int		size;
 
-	i = 0;
-	if (n == 0 || NULL)
-		i += ft_putstr("(nil)");
-	else
+	if (n == 0)
+		return (ft_strdup("0"));
+	size = ft_nbrlen(n);
+	str = (char *) malloc((size + 1) * sizeof(char));
+	if (str)
 	{
-		i += ft_putstr("0x");
-		i += putpointer(n);
+		str[size] = '\0';
+		while (size-- > 0 && n > 9)
+		{
+			str[size] = n % 10 + '0';
+			n = n / 10;
+		}
+		str[size] = n + '0';
+		return (str);
 	}
-	return (i);
+	return (NULL);
 }
