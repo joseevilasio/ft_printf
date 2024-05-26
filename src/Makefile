@@ -17,6 +17,7 @@ OBJS := $(SRCS:.c=.o)
 SRCS_BONUS := bonus/ft_printf_bonus.c bonus/ft_uitoa_hex_bonus.c \
 	bonus/ft_ptoa_bonus.c bonus/ft_uitoa_bonus.c  bonus/ft_printf_utils_bonus.c \
 	bonus/ft_parserflags_bonus.c bonus/ft_fmtspecifiers_bonus.c \
+	bonus/ft_add_precision_bonus.c bonus/ft_format_utils_bonus.c\
 
 OBJS_BONUS := $(SRCS_BONUS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 18:59:10 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/21 22:19:51 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:09:34 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,73 +20,28 @@ int	ft_checklen(char *str, char fmt)
 		return (ft_strlen(str));
 }
 
-int	ft_flaglen(char *str)
+char	*ft_merge(char *s1, char *s2, int fmt)
 {
-	int	i;
+	char	*new;
+	char	*swap;
 
-	i = 0;
-	while (str[i])
+	if (fmt == 'd' || fmt == 'i')
 	{
-		if (str[i] == 'c' || str[i] == 's' || str[i] == 'p' || str[i] == 'd'
-			|| str[i] == 'i' || str[i] == 'u' || str[i] == 'x' || str[i] == 'X'
-			|| str[i] == '%')
-			break ;
-		i++;
-	}
-	return (i);
-}
-
-void	lflag_clear(t_lflags *lstflags)
-{
-	if (lstflags)
-	{
-		free(lstflags);
-		lstflags = NULL;
-	}
-}
-
-t_lflags	ft_flagchr(t_lflags *lstflags, char flag, int mode)
-{
-	int	i;
-
-	i = 0;
-	if (mode == 1)
-	{
-		while (lstflags[i].flag)
+		if (ft_strchr(s2, '-') && !ft_strchr(s1, ' '))
 		{
-			if (lstflags[i].flag == flag)
-				return (lstflags[i]);
-			i++;
-		}		
-	}
-	else if (mode == 2)
-	{
-		while (lstflags[i].type)
-		{
-			if (lstflags[i].type == flag)
-				return (lstflags[i]);
-			i++;
+			swap = ft_strjoin(s1, (s2 + 1));
+			new = ft_strjoin("-", swap);
+			free(swap);
 		}
+		else
+			new = ft_strjoin(s1, s2);
 	}
-	return (lstflags[i]);
-}
-
-char	*ft_multichar(char c, int nbr)
-{
-	char	*str;
-	int		i;
-
-	str = malloc((nbr + 1) * sizeof(char));
-	if (str)
-	{
-		i = 0;
-		while (i < nbr)
-		{
-			str[i] = c;
-			i++;
-		}
-		str[i] = '\0';
-		return (str);
-	}
-	return (NULL);
+	else if (fmt == 'c' && !s2)
+		new = ft_strdup(s1);
+	else if (fmt == 'c' && !s1)
+		new = ft_strdup(s2);
+	else
+		new = ft_strjoin(s1, s2);
+	free(s2);
+	return (new);
 }

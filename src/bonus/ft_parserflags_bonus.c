@@ -6,20 +6,20 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 20:07:47 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/21 22:19:24 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:43:29 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-static void	add_flag(char f, t_lflags *lflags, t_bool use, char type, char *nbr)
+static void	add_flag(char f, t_lflags *lflags, char type, char *nbr)
 {
 	if (lflags)
 	{
 		lflags->flag = f;
 		lflags->type = type;
-		lflags->use = use;
-		lflags->number = ft_atoi(nbr);
+		lflags->use = FALSE;
+		lflags->nbr = ft_atoi(nbr);
 	}
 }
 
@@ -42,41 +42,43 @@ static int	add_number(char *str, t_lflags *lflags, char flag, int indice)
 		}
 		nbr[i] = '\0';
 	}
-	if (flag == '-' || flag == '0')
-		add_flag(flag, &lflags[indice - 1], TRUE, 'w', nbr);
-	else if (flag == '.')
-		add_flag(flag, &lflags[indice - 1], TRUE, 'p', nbr);
-	else //add space
-		add_flag('n', &lflags[indice], TRUE, 'w', nbr);
+	if ((flag == '-' || flag == '0') && !ft_flagchr(lflags, '.', 1).flag)
+		add_flag(flag, &lflags[indice - 1], 'w', nbr);
+	else if (flag == '.' || ft_flagchr(lflags, '.', 1).flag)
+		add_flag(flag, &lflags[indice - 1], 'p', nbr);
+	else
+		add_flag('n', &lflags[indice], 'w', nbr);
 	free(nbr);
-	return (i);
+	return (i - 1);
 }
 
-static void	get_flag(char *str, t_lflags *lflags, int limit)
+static void	get_flag(char *str, t_lflags *lflags, char fmt)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while (limit > i)
+	while (*str != fmt)
 	{
 		if (*str == '#')
-			add_flag('#', &lflags[i], FALSE, 'a', "0");
+			add_flag('#', &lflags[i++], 'a', "0");
 		else if (*str == '+')
-			add_flag('+', &lflags[i], FALSE, 'a', "0");
+			add_flag('+', &lflags[i++], 'a', "0");
 		else if (*str == ' ')
-			add_flag(' ', &lflags[i], FALSE, 'a', "0");
+			add_flag(' ', &lflags[i++], 'a', "0");
 		else if (*str == '.')
-			add_flag('.', &lflags[i], FALSE, 'p', "0");
-		else if (*str == '0')
-			add_flag('0', &lflags[i], FALSE, 'w', "0");
+			add_flag('.', &lflags[i++], 'p', "0");
+		else if (*str == '0' && *(str - 1) != '.')
+			add_flag('0', &lflags[i++], 'w', "0");
 		else if (*str == '-')
-			add_flag('-', &lflags[i], FALSE, 'w', "0");
-		else if (ft_isdigit(*str) == 1)	
+			add_flag('-', &lflags[i++], 'w', "0");
+		else if (ft_isdigit(*str) == 1)
+		{
 			str = str + add_number(str, lflags, *(str - 1), i);
-		i++;
+			if (lflags[i].flag == 'n')
+				i++;
+		}
 		str++;
 	}
-	add_flag('\0', &lflags[i], FALSE, '\0', "0");
 }
 
 static void	mode_flag(t_lflags *lflags, char *str, char f)
@@ -86,57 +88,43 @@ static void	mode_flag(t_lflags *lflags, char *str, char f)
 	a = 0;
 	while (lflags[a].flag)
 	{
-		if (lflags[a].flag == '#' && (f == 'x' || f == 'X'))
-			lflags[a].use = TRUE;
-		else if (lflags[a].flag == '.' && (f == 's' || f == 'x' || f == 'X'))
+		if (lflags[a].flag == '#' && (f == 'x' || f == 'X') && *str != '0')
 			lflags[a].use = TRUE;
 		else if ((lflags[a].flag == '+' || lflags[a].flag == ' ')
 			&& (f == 'd' || f == 'i') && ft_strchr(str, '-') == NULL)
 			lflags[a].use = TRUE;
-		else if (lflags[a].flag == '0' && (f != 'c' && f != 's' && f != 'p' 
-			&& f != '%'))
-		{
+		else if (lflags[a].flag == '0' || lflags[a].flag == '.'
+			|| lflags[a].flag == 'n' || lflags[a].flag == '-')
 			lflags[a].use = TRUE;
-			// if (!ft_flagchr(lflags, '-').flag)
-			// 	lflags[a].use = FALSE;
-		}
-		// else if (lflags[a].flag == '-' && n > 0) //verificar se a flag recebeu number
-		// 	lflags[a].use = TRUE;
-		// else if (lflags[a].flag == 'n' && ft_isflag('-', lflags) == 1) //talvez excluir
-		// 	lflags[a].use = FALSE;
 		a++;
 	}
 }
 
 char	*ft_parserflags(char *flags, va_list args)
 {
-	char		*specifier;
 	t_lflags	*lflags;
+	char		*specifier;
+	char		fmt;
 	int			size;
 
 	size = ft_flaglen(flags);
+	fmt = ft_getfmt(flags);
 	lflags = NULL;
 	if (size > 0)
 		lflags = ft_calloc((size + 1), sizeof(t_lflags));
 	if (lflags)
 	{
-		get_flag(flags, lflags, size);
-		specifier = ft_format(args, flags[size]);
-		mode_flag(lflags, specifier, flags[size]);
-		specifier = ft_fmtspecifiers(specifier, lflags, flags[size]);
+		get_flag(flags, lflags, fmt);
+		specifier = ft_format(args, fmt);
+		mode_flag(lflags, specifier, fmt);
+		specifier = ft_fmtspecifiers(specifier, lflags, fmt);
 		lflag_clear(lflags);
 		return (specifier);
 	}
 	else
 	{
-		specifier = ft_format(args, flags[size]);
+		specifier = ft_format(args, fmt);
 		return (specifier);
 	}
 	return (NULL);
 }
-
-// Para verificar
-// -> efeito do calloc
-// -> verificar se ft de tamanho esta correto
-// -> corrigir quando recebe um %c NULL
-// -> corrigir quando %d e %i e negativo com 0 e -

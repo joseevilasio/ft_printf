@@ -6,63 +6,53 @@
 /*   By: joneves- <joneves-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 23:18:24 by joneves-          #+#    #+#             */
-/*   Updated: 2024/05/21 22:20:32 by joneves-         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:04:36 by joneves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-static char	*merge(char *s1, char *s2)
-{
-	char	*new;
-
-	new = ft_strjoin(s1, s2);
-	free(s2);
-	return (new);
-}
-
-static char	*add_prefix(char *str, char fmt, t_lflags lstflags)
+static char	*add_prefix(char *str, char fmt, t_lflags flag)
 {
 	char	*new_str;
 
-	if (lstflags.flag == '#' && lstflags.use == TRUE)
+	if (flag.flag == '#' && flag.use == TRUE)
 	{
 		if (fmt == 'x')
-			new_str = merge("0x", str);
+			new_str = ft_merge("0x", str, fmt);
 		else
-			new_str = merge("0X", str);
+			new_str = ft_merge("0X", str, fmt);
 	}
-	else if (lstflags.flag == '+' && lstflags.use == TRUE)
-		new_str = merge("+", str);
-	else if (lstflags.flag == ' ' && lstflags.use == TRUE)
-		new_str = merge(" ", str);
+	else if (flag.flag == '+' && flag.use == TRUE)
+		new_str = ft_merge("+", str, fmt);
+	else if (flag.flag == ' ' && flag.use == TRUE)
+		new_str = ft_merge(" ", str, fmt);
 	else
 		return (str);
 	return (new_str);
 }
 
-static char	*add_width(char *str, t_lflags lstflags)
+static char	*add_width(char *str, char fmt, t_lflags flag)
 {
 	char	*new_str;
 	char	*width;
 	int		size_str;
 
 	size_str = ft_strlen(str);
-	if (lstflags.number > size_str && lstflags.use == TRUE)
+	if (flag.nbr > size_str && flag.use == TRUE)
 	{
-		if (lstflags.flag == 'n' || lstflags.flag == '-')
-			width = ft_multichar(' ', lstflags.number - size_str);
+		if (flag.flag == 'n' || flag.flag == '-')
+			width = ft_multichar(' ', flag.nbr - size_str);
 		else
-			width = ft_multichar('0', lstflags.number - size_str);
-		if (lstflags.flag == '-')
+			width = ft_multichar('0', flag.nbr - size_str);
+		if (flag.flag == '-')
 		{
-			// if ((fmt == 'd' || fmt == 'i') && ft_strchr(str, '-')) //negative
-			new_str = merge(str, width);
+			new_str = ft_merge(str, width, fmt);
 			free(str);
 		}
 		else
 		{
-			new_str = merge(width, str);
+			new_str = ft_merge(width, str, fmt);
 			free(width);
 		}
 	}
@@ -71,30 +61,16 @@ static char	*add_width(char *str, t_lflags lstflags)
 	return (new_str);
 }
 
-static char	*add_precision(char *str, char fmt, t_lflags lstflags)
+static char	*width(char *str, t_lflags *lflags, char fmt, int indice)
 {
-	char	*new_str;
-	char	*width;
-	int		size_str;
-
-	size_str = ft_strlen(str);
-	if (lstflags.number < size_str && lstflags.use == TRUE && fmt == 's')
-	{
-		new_str = malloc((lstflags.number + 1) * sizeof(char));
-		if (!new_str)
-			return (NULL);
-		ft_strlcpy(new_str, str, lstflags.number + 1);
-		free(str);
-	}
-	else if (lstflags.number > size_str && lstflags.use == TRUE && fmt != 's')
-	{
-		width = ft_multichar('0', lstflags.number - size_str);
-		new_str = merge(width, str);
-		free(width);
-	}
-	else
-		return (str);
-	return (new_str);
+	if (ft_flagchr(lflags, 'p', 2).flag)
+		str = ft_add_precision(str, fmt, ft_flagchr(lflags, 'p', 2));
+	if (ft_flagchr(lflags, '-', 1).flag || ft_flagchr(lflags, 'n', 1).flag)
+		str = add_prefix(str, fmt, ft_flagchr(lflags, 'a', 2));
+	str = add_width(str, fmt, lflags[indice]);
+	if (!ft_flagchr(lflags, '-', 1).flag && !ft_flagchr(lflags, 'n', 1).flag)
+		str = add_prefix(str, fmt, ft_flagchr(lflags, 'a', 2));
+	return (str);
 }
 
 char	*ft_fmtspecifiers(char *str, t_lflags *lflags, char fmt)
@@ -106,20 +82,17 @@ char	*ft_fmtspecifiers(char *str, t_lflags *lflags, char fmt)
 	specifier = str;
 	while (lflags[a].flag)
 	{
-		if (lflags[a].type == 'a' && !ft_flagchr(lflags, 'w', 2).flag && !ft_flagchr(lflags, 'w', 2). flag)
+		if (lflags[a].type == 'a' && !ft_flagchr(lflags, 'w', 2).flag
+			&& !ft_flagchr(lflags, 'p', 2).flag)
 			specifier = add_prefix(specifier, fmt, lflags[a]);
-		else if (lflags[a].type == 'p')
+		else if (lflags[a].type == 'p' && !ft_flagchr(lflags, 'w', 2).flag)
 		{
-			specifier = add_precision(specifier, fmt, lflags[a]);
+			specifier = ft_add_precision(specifier, fmt, lflags[a]);
 			specifier = add_prefix(specifier, fmt, ft_flagchr(lflags, 'a', 2));
 		}
 		else if (lflags[a].type == 'w')
 		{
-			if (ft_flagchr(lflags, '-', 1).flag || ft_flagchr(lflags, 'n', 1).flag)
-				specifier = add_prefix(specifier, fmt, ft_flagchr(lflags, 'a', 2));
-			specifier = add_width(specifier, lflags[a]);
-			if (!ft_flagchr(lflags, '-', 1).flag && !ft_flagchr(lflags, 'n', 1).flag)
-				specifier = add_prefix(specifier, fmt, ft_flagchr(lflags, 'a', 2));		
+			specifier = width(specifier, lflags, fmt, a);
 		}
 		a++;
 	}
